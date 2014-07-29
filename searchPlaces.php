@@ -1,12 +1,4 @@
-<!--Name: Divendar Murtadak   
-	
-			  http://omega.uta.edu/~dum4166/
- -->
 <?php
-// if(isset($_REQUEST['saveData'])){
-// 	do_alert("Hello");
-// 	do_alert($_GET['name']);
-// }
 if(isset($_REQUEST['saveData']) && $_REQUEST['saveData'] != ''){
 	//savePlace();
 	//do_alert("Hello");
@@ -28,36 +20,27 @@ if(isset($_REQUEST['saveData']) && $_REQUEST['saveData'] != ''){
 	$db->storeBookmarks($_GET['name'],$_GET['type'],$_GET['icon'],$_GET['latLng']);
 	echo '<script type="text/javascript">addMarker("' . $_GET['latLng'] . '"); </script>';
 	
-	
-		//$tag = $_POST['tag'];
-// 		do_alert("Hello1");
-	
-// 	echo "hello";
-// 	echo $_GET['saveData'];
 	mysql_close();
-	//include 'searchPlaces.php?search='.$searchStr;
 }
+// test alerts for debugging
 function do_alert($msg)
 {
 	echo '<script type="text/javascript">alert("' . $msg . '"); </script>';
 }
-
+// include JS and css
 $cssFile = "style.css";
 	echo '<html><head><title>Googe Place API</title> <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADA6USx4CghpsJcZQD-1WuYadhbgLnZyQ&sensor=true">';
 	echo '</script>';
     echo '<link  href=' . $cssFile . ' rel="stylesheet"></head>';
-   // echo ' <script type="text/javascript" src="jquery-2.1.1.min.js"></script>';
 	echo ' <script type="text/javascript" src="searchPlaces.js"></script>';
 	echo '<body text-align="center" onload="initialize();">';
 
-	/* session_start();
-	require_once 'include/DB_Functions.php';
-	$db = new DB_Functions(); */
+	
 	
 	function savePlace(){
 		require_once 'DB_Functions.php';
 		$db = new DB_Functions();
-		$con = mysql_connect('localhost', 'root', 'deven143@deven');
+		$con = mysql_connect('localhost', 'root', 'root');
 		
 		#Check connection
 		if (mysql_errno()) {
@@ -74,11 +57,11 @@ $cssFile = "style.css";
 		$tag = $_POST['tag'];
 		
 	}
-	
+	// check and trim search request
 	function req($key, $default = null) {
 		return isset($_REQUEST[$key]) ? trim($_REQUEST[$key]) : $default;
 	}
-
+// Search results and parse XML response
 	function searchRequest($key)
 	{
 		//do_alert("Hello1");
@@ -94,16 +77,8 @@ $cssFile = "style.css";
 					$name = $place->name;
 					$type = $place->type;
 					$icon = $place->icon;
-// 					foreach($place->geometry->location as $location)
-// 					{
-						//if(is_object($place->geometry->location->lat) && is_object($place->geometry->location->lng))
-							if($place)
 						$latLng =$place->geometry->location->lat.",".$place->geometry->location->lng;
-					//}
-										
-					//echo nl2br('<tr><td>'.$name.'</td><td>'.$type.'</td><td> <img src="'.$icon.'"/></td><td><a onclick="addMarker('.$latLng.')">Map Location</a></td><td><a onclick="callDB('.$name.','.$type.','.$icon.','.$latLng.')" >Bookmark</a></td></tr>');
 			    echo nl2br('<tr><td>'.$name.'</td><td>'.$type.'</td><td> <img src="'.$icon.'"/></td><td><a onclick="addMarker('.$latLng.')">Map Location</a></td><td><a href="searchPlaces.php?saveData=true&name='.$name.'&type='.$type.'&icon='.$icon.'&latLng='.$latLng.'" >Bookmark</a></td></tr>');
-					//echo nl2br('<tr><td>'.$name.'</td><td>'.$type.'</td><td> <img src="'.$icon.'"/></td><td><a onclick="addMarker('.$latLng.')">Map Location</a></td><td><a href="searchPlaces.php?saveData=true&name='.$place.'" >Bookmark</a></td></tr>');
 			 }
 		echo '</table>';
 	}
@@ -118,7 +93,7 @@ $cssFile = "style.css";
 	echo '</form>';
 	echo '<form action="bookmarked.php" method="get">';
 	echo '<input type="submit" value="Bookmarked"></form>';
-	
+	//get request
 	if(isset($_REQUEST['search'])) {
 		$searchStr = req('search');
 		searchRequest($searchStr);
