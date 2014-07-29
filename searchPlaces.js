@@ -14,6 +14,7 @@ var markers = [];
   document.write('" type="text/javascript"></');
   document.write('script');
   document.write('>');
+  // to set initial Map boundry 
 function initialize()
 {
 
@@ -31,7 +32,7 @@ this.mapProp = {
  
 }
 
-
+// add markers on click of map location
 function addMarker(latitude,longitude) {
 	
 	 var map = new google.maps.Map(document.getElementById('googleMap'), { 
