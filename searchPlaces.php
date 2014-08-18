@@ -3,7 +3,7 @@ if (isset ( $_REQUEST ['saveData'] ) && $_REQUEST ['saveData'] != '') {
 	require_once 'DB_Functions.php';
 	$db = new DB_Functions ();
 	
-	$con = mysql_connect ( 'omega.uta.edu', 'ajm6025', 't6GTLR76' );
+	$con = mysql_connect ( 'omega.uta.edu', 'test', 'test' );
 	
 	// heck connection
 	if (mysql_errno ()) {
@@ -12,7 +12,7 @@ if (isset ( $_REQUEST ['saveData'] ) && $_REQUEST ['saveData'] != '') {
 	}
 	
 	// selecting database
-	mysql_select_db ( 'ajm6025' );
+	mysql_select_db ( 'test' );
 	
 	$db->storeBookmarks ( $_GET ['name'], $_GET ['type'], $_GET ['icon'], $_GET ['latLng'] );
 	echo '<script type="text/javascript">addMarker("' . $_GET ['latLng'] . '"); </script>';
